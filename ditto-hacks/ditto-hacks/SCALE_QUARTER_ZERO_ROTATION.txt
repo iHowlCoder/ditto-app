@@ -1,0 +1,196 @@
+================================================================
+DNA LOADING — SCALE 1/4 + ZERO ROTATION
+Date: April 25, 2026
+================================================================
+
+CURRENT SETTINGS
+----------------------------------------------------------------
+
+✅ Scale: 0.25 (1/4 of original size)
+✅ Rotation X: 0° (no rotation)
+✅ Rotation Y: 0° (no rotation)
+✅ Rotation Z: 0° (no rotation)
+✅ Animation: NONE (static model)
+✅ Viewport: Fullscreen (entire phone)
+✅ Materials: Double-sided with JSON colors
+
+
+WHAT CHANGED
+----------------------------------------------------------------
+
+Scale:
+  Before: 0.5 (1/2 size)
+  After:  0.25 (1/4 size)
+
+Rotation:
+  Before: SCNVector3(Float.pi / 2, 0, 0) → 90° on X-axis
+  After:  SCNVector3(0, 0, 0) → No rotation at all
+
+Animation:
+  Before: 6-second Y-axis rotation
+  After:  NONE - model is completely static
+
+
+WHY ZERO ROTATION?
+----------------------------------------------------------------
+
+Setting all rotations to zero means:
+  • Model appears EXACTLY as exported from Blender
+  • No SceneKit transformations applied
+  • Shows the "native" orientation
+  • Helps debug what the actual model looks like
+
+This is useful to:
+  1. See the model's true orientation
+  2. Check if it needs rotation at all
+  3. Determine which axis to rotate
+  4. Verify the bounding box dimensions
+
+
+CODE STRUCTURE
+----------------------------------------------------------------
+
+dnaNode.scale = SCNVector3(0.25, 0.25, 0.25)
+  ↑ Model is 1/4 the size on all axes
+
+dnaNode.position = SCNVector3(0, 0, 0)
+  ↑ Centered at origin
+
+dnaNode.eulerAngles = SCNVector3(0, 0, 0)
+  ↑ No rotation applied
+
+// NO animation code
+  ↑ Model stays completely still
+
+
+WHAT YOU'LL SEE
+----------------------------------------------------------------
+
+When you run the app:
+
+┏━━━━━━━━━━━━━━━━━━━━━┓
+┃                     ┃
+┃                     ┃
+┃    🧬 DNA Model     ┃
+┃    (1/4 size)       ┃
+┃    Static           ┃
+┃    No rotation      ┃
+┃                     ┃
+┃                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━┛
+
+The model will:
+  • Appear smaller (1/4 size)
+  • Stay completely still
+  • Show in its native Blender orientation
+  • Fill the screen (but smaller footprint)
+
+
+CONSOLE OUTPUT
+----------------------------------------------------------------
+
+Check the bounding box to understand orientation:
+
+🔍 DNA Model bounding box:
+   Min: (x, y, z)
+   Max: (x, y, z)
+   Width (X): [value]
+   Height (Y): [value]
+   Depth (Z): [value]
+
+Interpretation:
+  • If X is largest → Model extends left/right (sideways)
+  • If Y is largest → Model extends up/down (upright) ✓
+  • If Z is largest → Model extends forward/back (laying flat)
+
+
+USING DNAOrientationTester
+----------------------------------------------------------------
+
+The orientation tester now defaults to:
+  Rotation X: 0°
+  Rotation Y: 0°
+  Rotation Z: 0°
+  Scale: 0.25 (1/4)
+
+Use it to:
+  1. See the model from all angles (camera control enabled)
+  2. Try different rotations with sliders
+  3. Find the perfect orientation
+  4. Test different scales
+
+
+NEXT STEPS
+----------------------------------------------------------------
+
+After running the app:
+
+1. Check console for bounding box
+2. Note which dimension is largest
+3. Use DNAOrientationTester to adjust rotation
+4. Find the correct orientation to make it upright
+5. Update DNALoadingView with working values
+
+
+IF MODEL IS LAYING FLAT
+----------------------------------------------------------------
+
+Try these rotations in DNAOrientationTester:
+
+Rotate 90° on X:
+  rotationX = 90 (or -90)
+  rotationY = 0
+  rotationZ = 0
+
+Rotate 90° on Y:
+  rotationX = 0
+  rotationY = 90 (or -90)
+  rotationZ = 0
+
+Rotate 90° on Z:
+  rotationX = 0
+  rotationY = 0
+  rotationZ = 90 (or -90)
+
+
+IF YOU WANT ROTATION ANIMATION
+----------------------------------------------------------------
+
+Add this code after the eulerAngles line:
+
+let rotation = CABasicAnimation(keyPath: "rotation")
+rotation.toValue = NSValue(scnVector4: SCNVector4(0, 1, 0, Float.pi * 2))
+rotation.duration = 6.0
+rotation.repeatCount = .infinity
+dnaNode.addAnimation(rotation, forKey: "rotation")
+
+This will make it spin around Y-axis (vertical).
+
+
+TESTING CHECKLIST
+----------------------------------------------------------------
+
+✓ Model is 1/4 size (smaller than before)
+✓ Model does not rotate (static)
+✓ Model shows in native orientation
+✓ Fullscreen viewport (edge-to-edge)
+✓ Materials are applied and double-sided
+✓ Console shows bounding box dimensions
+✓ Colors match JSON definitions
+
+
+COMPARISON
+----------------------------------------------------------------
+
+Old Settings:
+  Scale: 0.5 (half size)
+  Rotation: 90° on X-axis
+  Animation: 6s Y-axis spin
+
+New Settings:
+  Scale: 0.25 (quarter size)
+  Rotation: 0° (none)
+  Animation: None (static)
+
+
+================================================================

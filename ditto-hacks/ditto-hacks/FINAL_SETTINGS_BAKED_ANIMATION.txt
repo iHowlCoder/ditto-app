@@ -1,0 +1,226 @@
+================================================================
+FINAL DNA LOADING SETTINGS - BAKED ANIMATION
+Date: April 25, 2026
+================================================================
+
+SETTINGS APPLIED FROM YOUR SCREENSHOT
+----------------------------------------------------------------
+
+✅ Scale: 0.93 (93% of original size)
+✅ Rotation X: 7° 
+✅ Rotation Y: 18°
+✅ Rotation Z: -18°
+✅ Camera Position: (-16, 10, 40)
+✅ Model Position: (0, 3, 0) - Moved UP
+✅ Baked Animation: ENABLED (plays automatically)
+
+
+WHAT CHANGED
+----------------------------------------------------------------
+
+Scale:
+  Before: 0.25 (1/4 size)
+  After:  0.93 (nearly full size)
+
+Rotation:
+  Before: (0°, 0°, 0°) - no rotation
+  After:  (7°, 18°, -18°) - slight tilt from your settings
+
+Camera:
+  Before: (3, 2, 25)
+  After:  (-16, 10, 40) - far left, higher, farther back
+
+Model Position:
+  Before: (0, 0, 0) - centered
+  After:  (0, 3, 0) - moved UP by 3 units
+
+Animation:
+  Before: None (static)
+  After:  Baked animation from DAE plays automatically
+
+
+WHY MOVED UP (Y = 3)?
+----------------------------------------------------------------
+
+Moving the model UP on Y-axis ensures it:
+  ✓ Covers more of the screen vertically
+  ✓ Fills the entire frame top-to-bottom
+  ✓ Centers better with angled camera view
+  ✓ Appears more prominent in viewport
+
+
+BAKED ANIMATION
+----------------------------------------------------------------
+
+SceneKit automatically plays animations embedded in DAE files.
+
+The code now:
+  1. Loads the DAE file with animations
+  2. Checks for animations in the model
+  3. Prints animation info to console
+  4. Plays automatically (no code needed)
+
+Console Output:
+  ✅ Found X animations in DAE file
+  OR
+  ⚠️ No animations found in root node, checking children...
+
+
+CODE STRUCTURE
+----------------------------------------------------------------
+
+// Scale to match your settings
+dnaNode.scale = SCNVector3(0.93, 0.93, 0.93)
+
+// Move UP to fill frame
+dnaNode.position = SCNVector3(0, 3, 0)
+
+// Apply rotation from your settings
+let rotX = 7.0 * Float.pi / 180.0
+let rotY = 18.0 * Float.pi / 180.0
+let rotZ = -18.0 * Float.pi / 180.0
+dnaNode.eulerAngles = SCNVector3(rotX, rotY, rotZ)
+
+// Camera positioned from left-high-far
+cameraNode.position = SCNVector3(-16.0, 10.0, 40.0)
+
+// Look at model (shifted up)
+cameraNode.look(at: SCNVector3(0, 3, 0))
+
+
+CAMERA POSITION EXPLAINED
+----------------------------------------------------------------
+
+X = -16.0 (far LEFT)
+  Negative X moves camera to the left
+  Looking at model from left side
+
+Y = 10.0 (HIGH above)
+  Positive Y moves camera upward
+  Looking down at model from above
+
+Z = 40.0 (FAR back)
+  Large Z value = very far from model
+  Gives wide view of entire scene
+
+
+VISUAL LAYOUT
+----------------------------------------------------------------
+
+Side View:
+
+         Camera (-16, 10, 40)
+           📷
+          ╱
+         ╱
+        ╱
+       ●  ← DNA Model (0, 3, 0) - moved UP
+       
+       
+    (0, 0, 0) ← Origin (below model)
+
+
+Top View:
+
+    Camera
+      📷 ← (-16, 10, 40)
+        
+        
+              ●  ← DNA Model
+                   (0, 3, 0)
+                   
+         LEFT side view
+
+
+WHAT YOU'LL SEE
+----------------------------------------------------------------
+
+┏━━━━━━━━━━━━━━━━━━━━━┓
+┃                     ┃
+┃     🧬 DNA          ┃ ← Model fills height
+┃     Helix           ┃
+┃     (large)         ┃
+┃     Animated        ┃
+┃                     ┃
+┃                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━┛
+
+• Nearly full-size (0.93 scale)
+• Slight tilt (7°, 18°, -18°)
+• Viewed from left-above-far
+• Playing baked animation
+• Fills entire phone screen
+
+
+ROTATION BREAKDOWN
+----------------------------------------------------------------
+
+X = 7° (pitch)
+  Slight forward tilt
+  Tips top toward you slightly
+
+Y = 18° (yaw)
+  Rotated clockwise ~20°
+  Shows slight angle, not straight-on
+
+Z = -18° (roll)
+  Tilted counter-clockwise ~20°
+  Creates dynamic diagonal pose
+
+
+TESTING
+----------------------------------------------------------------
+
+Run the app and check console:
+
+Expected output:
+  ✅ Found X animations in DAE file
+  (If animations exist in the file)
+
+Or:
+  ⚠️ No animations found in root node, checking children...
+  ✅ Found animations in child node: [name]
+
+If no animation messages appear:
+  → DAE file has no baked animations
+  → You'll need to add animation in Blender/export
+
+
+ANIMATION NOT PLAYING?
+----------------------------------------------------------------
+
+If the model doesn't animate:
+
+1. Check console for animation messages
+2. Verify DAE file has animations:
+   - Open in Blender
+   - Check animation timeline
+   - Re-export with animations enabled
+
+3. SceneKit auto-plays animations IF:
+   - They exist in the DAE file
+   - Export settings include animations
+   - File format is correct (COLLADA .dae)
+
+
+FULL SETTINGS SUMMARY
+----------------------------------------------------------------
+
+Model Settings:
+  Scale: SCNVector3(0.93, 0.93, 0.93)
+  Position: SCNVector3(0, 3, 0)
+  Rotation: SCNVector3(7°, 18°, -18°)
+  Animation: Baked (auto-play)
+
+Camera Settings:
+  Position: SCNVector3(-16, 10, 40)
+  Look At: SCNVector3(0, 3, 0)
+  Field of View: 60°
+
+Materials:
+  Double-sided: true
+  From JSON: main.materials.json
+  Lighting: Physically-based
+
+
+================================================================

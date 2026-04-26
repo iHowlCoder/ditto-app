@@ -1,0 +1,194 @@
+================================================================
+CAMERA REPOSITIONED - ANGLED VIEW
+Date: April 25, 2026
+================================================================
+
+CAMERA CHANGES
+----------------------------------------------------------------
+
+✅ Camera pulled farther back (Z: 15 → 25)
+✅ Camera offset to the right (X: 0 → 3)
+✅ Camera offset upward (Y: 0 → 2)
+✅ Camera angled to look at DNA model
+✅ Better perspective view of the model
+
+
+OLD CAMERA POSITION
+----------------------------------------------------------------
+
+Position: SCNVector3(0, 0, 15)
+  X: 0 (centered horizontally)
+  Y: 0 (centered vertically)
+  Z: 15 (15 units back)
+
+View: Straight-on, head-on view
+  - Looking directly at front of model
+  - No depth perception
+  - Flat 2D appearance
+
+
+NEW CAMERA POSITION
+----------------------------------------------------------------
+
+Position: SCNVector3(3, 2, 25)
+  X: 3 (shifted right)
+  Y: 2 (shifted up)
+  Z: 25 (much farther back)
+
+View: Angled 3D perspective
+  - Looking down at model from above-right
+  - Better depth perception
+  - Shows 3D structure clearly
+  - More cinematic angle
+
+
+VISUAL COMPARISON
+----------------------------------------------------------------
+
+Old (Straight-on):          New (Angled):
+
+    Camera                      Camera
+      ↓                          ↓
+      │                         ╱
+      │                        ╱
+   ┌──┴──┐                 ┌──╱──┐
+   │ DNA │                 │ DNA │
+   └─────┘                 └─────┘
+   
+   Flat view              3D perspective
+   No depth               Depth visible
+
+
+COORDINATE EXPLANATION
+----------------------------------------------------------------
+
+X-axis (left/right):
+  Negative ← Center (0) → Positive
+  Camera at X=3 is slightly to the RIGHT
+
+Y-axis (up/down):
+  Negative ← Center (0) → Positive
+  Camera at Y=2 is slightly ABOVE
+
+Z-axis (forward/back):
+  Model ← Distance → Camera
+  Camera at Z=25 is FAR BACK
+
+
+CAMERA ANGLE DIAGRAM
+----------------------------------------------------------------
+
+Top view (looking down):
+
+      ┌─────────────────────┐
+      │                     │
+      │         DNA         │  ← Model at (0,0,0)
+      │          ●          │
+      │                     │
+      │                  📷 │  ← Camera at (3,2,25)
+      └─────────────────────┘
+                          ↑
+                    Offset to right
+
+
+Side view (looking from left):
+
+         📷 ← Camera (higher and farther)
+        ╱
+       ╱
+      ╱
+     ●  ← DNA Model (at origin)
+
+
+WHAT THIS ACHIEVES
+----------------------------------------------------------------
+
+✓ Model appears smaller but fully visible
+✓ Better sense of 3D depth
+✓ More professional/cinematic angle
+✓ Can see top and front of model
+✓ Resembles how humans naturally view objects
+
+
+DNA ORIENTATION TESTER
+----------------------------------------------------------------
+
+Now includes NEW sliders:
+
+Camera Z: 5-40 (distance back)
+  Default: 25
+
+Camera X: -10 to 10 (left/right)
+  Default: 3
+
+Camera Y: -10 to 10 (up/down)
+  Default: 2
+
+Scale: 0.1-1.5
+  Default: 0.25
+
+Use these to find the perfect camera angle!
+
+
+CODE STRUCTURE
+----------------------------------------------------------------
+
+// Position camera at angle
+cameraNode.position = SCNVector3(3, 2, 25)
+
+// Look directly at model origin
+cameraNode.look(at: SCNVector3(0, 0, 0))
+
+The .look(at:) method ensures the camera is always
+pointing at the DNA model, no matter where it's positioned.
+
+
+WHY THIS IS BETTER
+----------------------------------------------------------------
+
+Straight-on view problems:
+  ❌ Looks flat/2D
+  ❌ No depth perception
+  ❌ Can't see 3D structure
+  ❌ Boring composition
+
+Angled view benefits:
+  ✅ Shows 3D depth
+  ✅ More interesting composition
+  ✅ Professional appearance
+  ✅ Reveals structure better
+  ✅ Cinematic quality
+
+
+TESTING
+----------------------------------------------------------------
+
+Run DNALoadingPreview:
+- Click "Show Info" button
+- Should see: "Camera: (3, 2, 25)"
+- Should see: "Angled View"
+
+Run DNAOrientationTester:
+- Adjust Camera X, Y, Z sliders
+- Find your perfect angle
+- Note the values you like
+- Update DNALoadingView with those values
+
+
+CUSTOMIZATION
+----------------------------------------------------------------
+
+Want camera closer?
+  Decrease Z: try 15-20
+
+Want camera more to the side?
+  Increase X: try 5-8
+
+Want camera higher above?
+  Increase Y: try 4-6
+
+Want centered (old view)?
+  Set X=0, Y=0, Z=15
+
+
+================================================================

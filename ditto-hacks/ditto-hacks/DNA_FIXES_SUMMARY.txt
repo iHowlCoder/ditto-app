@@ -1,0 +1,198 @@
+================================================================
+DNA LOADING VIEW — FIXES APPLIED
+Date: April 25, 2026
+================================================================
+
+ISSUES FIXED
+----------------------------------------------------------------
+
+1. ✅ Viewport now fullscreen (ignoresSafeArea)
+2. ✅ Changed rotation from -90° to +90° on X-axis
+3. ✅ Enhanced material debugging with detailed console output
+4. ✅ Fixed material application to process ALL materials, not just first
+5. ✅ Added bounding box debug output
+6. ✅ Created interactive orientation testing tool
+
+
+WHAT CHANGED
+----------------------------------------------------------------
+
+1. FULLSCREEN VIEWPORT:
+
+Before:
+  VStack {
+    DNASceneView()
+      .frame(width: 400, height: 600)
+  }
+
+After:
+  ZStack {
+    DNASceneView()
+      .ignoresSafeArea()  // Takes entire screen
+    
+    VStack {
+      Spacer()
+      Text("DITTO")  // Overlaid at bottom
+    }
+  }
+
+2. ROTATION ORIENTATION:
+
+Before:
+  dnaNode.eulerAngles = SCNVector3(-Float.pi / 2, 0, 0)
+
+After:
+  dnaNode.eulerAngles = SCNVector3(Float.pi / 2, 0, 0)
+  
+  Plus bounding box debugging to verify dimensions
+
+
+3. MATERIAL APPLICATION:
+
+Before:
+  - Only processed geometry.firstMaterial
+  - Limited debug output
+
+After:
+  - Loops through ALL materials in geometry.materials
+  - Detailed console output shows:
+    • Material count
+    • Each material name
+    • RGB values applied
+    • Which materials matched JSON
+    • Which materials fell back to defaults
+
+
+CONSOLE OUTPUT (EXPECTED)
+----------------------------------------------------------------
+
+🎨 Starting material application...
+📦 JSON contains 6 material definitions
+🔍 Found geometry with 3 material(s)
+   Processing material [0]: Material.001
+   ✅ Applied Material.001: RGB(0.235, 0.235, 0.235)
+   Processing material [1]: Material.003
+   ✅ Applied Material.003: RGB(0.0, 0.735, 0.007)
+   Processing material [2]: Material.006
+   ✅ Applied Material.006: RGB(0.735, 0.024, 0.549)
+🎨 Material application complete!
+
+🔍 DNA Model bounding box:
+   Min: (x, y, z)
+   Max: (x, y, z)
+   Width (X): value
+   Height (Y): value  ← Should be largest if upright
+   Depth (Z): value
+
+
+INTERACTIVE TESTING TOOL
+----------------------------------------------------------------
+
+Use DNAOrientationTester.swift to find correct orientation:
+
+1. Open DNAOrientationTester in preview
+2. Adjust sliders in real-time:
+   - Rotation X (red)
+   - Rotation Y (green)
+   - Rotation Z (blue)
+   - Camera distance
+   - Model scale
+
+3. Quick test buttons:
+   - "Try -90° X"
+   - "Try +90° Y"
+   - "Try +90° Z"
+
+4. When model looks correct upright, note the values
+5. Update DNALoadingView with those exact values
+
+
+TROUBLESHOOTING ORIENTATION
+----------------------------------------------------------------
+
+If model is STILL laying flat after +90° X:
+
+Try these in DNAOrientationTester:
+
+Option 1: Rotate on Y-axis
+  rotationX = 0
+  rotationY = 90
+  rotationZ = 0
+
+Option 2: Rotate on Z-axis
+  rotationX = 0
+  rotationY = 0
+  rotationZ = 90
+
+Option 3: Combined rotation
+  rotationX = 90
+  rotationY = 90
+  rotationZ = 0
+
+Option 4: Different X angle
+  rotationX = -90  (try negative again)
+  rotationY = 0
+  rotationZ = 0
+
+The bounding box output will tell you which dimension is largest:
+- If Width (X) is largest → model is sideways
+- If Height (Y) is largest → model is upright ✓
+- If Depth (Z) is largest → model is laying forward/back
+
+
+MATERIAL COLOR REFERENCE
+----------------------------------------------------------------
+
+From main.materials.json:
+
+Material.001: RGB(0.235, 0.235, 0.235) - Dark Gray
+Material.002: RGB(0.906, 0.906, 0.906) - Light Gray
+Material.003: RGB(0.0, 0.735, 0.007) - Green
+Material.004: RGB(0.704, 0.735, 0.002) - Yellow/Lime
+Material.005: RGB(0.735, 0.0, 0.064) - Red
+Material.006: RGB(0.735, 0.024, 0.549) - Pink/Magenta
+
+If colors aren't appearing:
+1. Check console for material names
+2. Verify material names in DAE match JSON exactly
+3. Case-sensitive matching (Material.001 ≠ material.001)
+
+
+NEXT STEPS
+----------------------------------------------------------------
+
+1. Run the app and check console output
+2. Note the bounding box dimensions
+3. Use DNAOrientationTester to find correct rotation
+4. Once found, update DNALoadingView.swift line 71:
+   dnaNode.eulerAngles = SCNVector3(correctX, correctY, correctZ)
+
+
+FULLSCREEN LAYOUT
+----------------------------------------------------------------
+
+Current structure (NO UI ELEMENTS):
+
+┌─────────────────────────┐
+│                         │
+│                         │
+│                         │
+│   3D DNA Model          │
+│   FILLS ENTIRE          │
+│   PHONE SCREEN          │
+│                         │
+│                         │
+│                         │
+│                         │
+└─────────────────────────┘
+
+Complete edge-to-edge display:
+- No "DITTO" text
+- No loading spinner
+- No margins or padding
+- Just pure 3D DNA model
+- Black background
+- Covers notch/status bar/home indicator
+
+
+================================================================

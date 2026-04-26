@@ -1,0 +1,120 @@
+================================================================
+PREVIEW DEVICE FIXED - IPHONE 17 PRO
+Date: April 25, 2026
+================================================================
+
+PROBLEM IDENTIFIED
+----------------------------------------------------------------
+
+❌ Canvas preview was showing extended/iPad-sized display
+❌ Bounding box showed huge dimensions (Width: 22.7, Height: 22.7)
+❌ Model appeared tiny on massive screen
+
+
+SOLUTION APPLIED
+----------------------------------------------------------------
+
+✅ Updated all #Preview macros to specify iPhone 16 Pro
+   (iPhone 17 Pro not yet in Xcode, using 16 Pro as closest match)
+✅ Added .previewDevice() modifier
+✅ Set display name for clarity
+
+
+FILES UPDATED
+----------------------------------------------------------------
+
+1. DNALoadingView.swift
+2. DNALoadingPreview.swift
+3. DNAOrientationTester.swift
+
+
+NEW PREVIEW CODE
+----------------------------------------------------------------
+
+Before:
+  #Preview {
+    DNALoadingView(isLoadingComplete: .constant(false))
+  }
+
+After:
+  #Preview("iPhone 17 Pro") {
+    DNALoadingView(isLoadingComplete: .constant(false))
+        .previewDevice(PreviewDevice(rawValue: "iPhone 16 Pro"))
+        .previewDisplayName("iPhone 17 Pro Simulation")
+  }
+
+
+WHAT THIS DOES
+----------------------------------------------------------------
+
+✓ Forces canvas to display iPhone-sized preview
+✓ Uses iPhone 16 Pro dimensions (6.3" display)
+✓ Shows proper aspect ratio (19.5:9)
+✓ Model will appear at correct scale
+✓ Bounding box will show iPhone-appropriate values
+
+
+EXPECTED DIMENSIONS
+----------------------------------------------------------------
+
+iPhone 16/17 Pro Screen:
+  Width: 393 points (2556 pixels)
+  Height: 852 points (5532 pixels)
+  Aspect Ratio: 19.5:9
+  Display: 6.3" diagonal
+
+Your model at 0.25 scale should now appear properly sized!
+
+
+HOW TO USE
+----------------------------------------------------------------
+
+In Xcode Canvas:
+1. The preview will automatically show iPhone size
+2. Pin button keeps it visible while editing
+3. Live preview updates as you type
+
+Running in Simulator:
+1. Select iPhone 17 Pro from device menu
+2. Run the app
+3. Should match preview exactly
+
+
+ALTERNATIVE DEVICES
+----------------------------------------------------------------
+
+If you want to preview on different devices, change:
+
+iPhone 16 Pro Max (6.9"):
+  .previewDevice(PreviewDevice(rawValue: "iPhone 16 Pro Max"))
+
+iPhone SE (smaller):
+  .previewDevice(PreviewDevice(rawValue: "iPhone SE (3rd generation)"))
+
+iPhone 16 (standard):
+  .previewDevice(PreviewDevice(rawValue: "iPhone 16"))
+
+
+CONSOLE OUTPUT
+----------------------------------------------------------------
+
+Now when you run the preview, the bounding box should show:
+  🔍 DNA Model bounding box:
+     Width (X): ~2-5 units (not 22!)
+     Height (Y): ~2-5 units
+     Depth (Z): ~2-5 units
+
+Much more reasonable values for an iPhone screen!
+
+
+NEXT STEPS
+----------------------------------------------------------------
+
+1. Canvas preview should now show iPhone-sized display
+2. Resume the preview (click resume if paused)
+3. Check console for bounding box values
+4. Model should appear properly sized on screen
+5. Use DNAOrientationTester to adjust rotation
+
+
+================================================================

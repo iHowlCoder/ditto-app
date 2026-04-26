@@ -1,0 +1,146 @@
+================================================================
+DNA LOADING — TRUE FULLSCREEN (NO UI)
+Date: April 25, 2026
+================================================================
+
+WHAT YOU GET NOW
+----------------------------------------------------------------
+
+✅ DNA model fills ENTIRE phone screen
+✅ Edge-to-edge display (ignores safe area)
+✅ No "DITTO" text
+✅ No loading spinner
+✅ No UI elements at all
+✅ Pure 3D experience for 10 seconds
+✅ Black background
+✅ Then transitions directly to Login screen
+
+
+CODE STRUCTURE
+----------------------------------------------------------------
+
+Before (with UI):
+  ZStack {
+    DNASceneView()
+    VStack {
+      Text("DITTO")
+      ProgressView()
+    }
+  }
+
+After (pure 3D):
+  DNASceneView()
+    .ignoresSafeArea()
+    .background(Color.black)
+
+
+VISUAL LAYOUT
+----------------------------------------------------------------
+
+iPhone Screen:
+
+┏━━━━━━━━━━━━━━━━━━━━━┓ ← Status bar covered
+┃                     ┃
+┃                     ┃
+┃                     ┃
+┃    DNA Model 3D     ┃
+┃    Fills Entire     ┃
+┃    Screen           ┃
+┃                     ┃
+┃                     ┃
+┃                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━┛ ← Home indicator covered
+
+Complete immersion:
+• Covers notch/Dynamic Island
+• Covers status bar
+• Covers home indicator
+• No margins
+• No padding
+• Pure 3D viewport
+
+
+USER EXPERIENCE
+----------------------------------------------------------------
+
+1. App launches
+2. Instant black screen
+3. DNA model appears (rotating)
+4. Fills entire display
+5. No distractions
+6. After 10 seconds → Login screen appears
+
+
+TECHNICAL DETAILS
+----------------------------------------------------------------
+
+ignoresSafeArea() ensures:
+  ✓ Content extends under status bar
+  ✓ Content extends under notch/island
+  ✓ Content extends under home indicator
+  ✓ Content reaches all edges
+
+background(Color.black) ensures:
+  ✓ No white flashing
+  ✓ Seamless black appearance
+  ✓ Matches SceneKit background
+
+
+WHAT THIS MEANS
+----------------------------------------------------------------
+
+Your loading screen is now:
+• Cinematic (like a movie)
+• Immersive (no UI clutter)
+• Professional (clean design)
+• Focused (just the 3D model)
+• Modern (fullscreen experience)
+
+
+IF YOU WANT TO ADD UI BACK
+----------------------------------------------------------------
+
+To add "DITTO" text or spinner later:
+
+ZStack {
+  DNASceneView()
+    .ignoresSafeArea()
+  
+  VStack {
+    Spacer()
+    Text("DITTO")
+      .foregroundColor(.white)
+    ProgressView()
+      .tint(.green)
+  }
+  .padding(.bottom, 60)
+}
+
+
+TESTING
+----------------------------------------------------------------
+
+Run the app and you should see:
+1. Black screen instantly
+2. DNA model appears
+3. Fills from edge to edge
+4. Rotates smoothly
+5. No text visible
+6. No spinner visible
+7. After 10 seconds → Login appears
+
+
+CONSOLE OUTPUT
+----------------------------------------------------------------
+
+You'll still see debug info:
+  🎨 Starting material application...
+  📦 JSON contains 6 material definitions
+  🔍 Found geometry with X material(s)
+  ✅ Applied Material.XXX: RGB(...)
+  🔍 DNA Model bounding box: [dimensions]
+
+Use this to verify materials are loading correctly!
+
+
+================================================================

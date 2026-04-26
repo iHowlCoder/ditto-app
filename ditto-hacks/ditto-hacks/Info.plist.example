@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Camera Permission -->
+    <key>NSCameraUsageDescription</key>
+    <string>Ditto needs camera access to verify your task completion with photos</string>
+    
+    <!-- Photo Library Permission -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Ditto needs photo library access to let you select verification photos</string>
+    
+    <!-- Photo Library Add Permission (if you want to save photos) -->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Ditto needs permission to save your achievement photos</string>
+</dict>
+</plist>
